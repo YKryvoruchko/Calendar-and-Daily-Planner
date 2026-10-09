@@ -11,7 +11,22 @@
 </head>
 <body>
 
-    <div class="app-container">
+    <!-- Экран авторизации (показывается, если пользователь не вошел) -->
+    <div id="auth-screen" class="auth-screen">
+        <div class="auth-card">
+            <div class="logo-large">
+                <i class="fa-solid fa-calendar-days"></i>
+                <span>Мой Дневник</span>
+            </div>
+            <p>Войдите, чтобы ваши дела сохранялись в облаке и были доступны с любого устройства.</p>
+            <button id="google-login-btn" class="btn-google">
+                <i class="fa-brands fa-google"></i> Войти через Google
+            </button>
+        </div>
+    </div>
+
+    <!-- Основное приложение (скрыто до входа) -->
+    <div class="app-container" id="app-container" style="display: none;">
         <!-- Боковая панель -->
         <aside class="sidebar">
             <div class="logo">
@@ -46,6 +61,13 @@
                 <label><input type="checkbox" class="cat-filter" value="study" checked> <span class="badge study">Учеба</span></label>
                 <label><input type="checkbox" class="cat-filter" value="health" checked> <span class="badge health">Здоровье</span></label>
             </div>
+
+            <!-- Блок профиля и выхода -->
+            <div class="user-profile">
+                <img id="user-avatar" src="" alt="Avatar" style="display:none;">
+                <span id="user-name"></span>
+                <button id="logout-btn" class="icon-btn" title="Выйти"><i class="fa-solid fa-right-from-bracket"></i></button>
+            </div>
         </aside>
 
         <!-- Основная часть -->
@@ -66,10 +88,8 @@
                 </div>
             </header>
 
-            <!-- Контейнер для отображения расписания (день, неделя или месяц) -->
-            <div class="schedule-container" id="schedule-container">
-                <!-- Сюда JavaScript будет динамически вставлять сетку часов -->
-            </div>
+            <!-- Контейнер для отображения расписания -->
+            <div class="schedule-container" id="schedule-container"></div>
         </main>
     </div>
 
@@ -125,6 +145,11 @@
             </form>
         </div>
     </div>
+
+    <!-- Подключаем Firebase через CDN -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
     <!-- Подключаем логику -->
     <script src="script.js"></script>

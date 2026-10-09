@@ -20,6 +20,7 @@
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 body {
@@ -27,6 +28,67 @@ body {
     color: var(--text-main);
     height: 100vh;
     overflow: hidden;
+}
+
+/* Экран входа */
+.auth-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+}
+
+.auth-card {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.logo-large {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.auth-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.btn-google {
+    background-color: white;
+    border: 1px solid var(--border-color);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--text-main);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: background 0.2s;
+}
+.btn-google:hover {
+    background-color: var(--bg-color);
+}
+.btn-google i {
+    color: #db4437;
+    font-size: 1.2rem;
 }
 
 .app-container {
@@ -66,12 +128,10 @@ body {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    transition: background 0.2s;
+    transition: background 0.2s, transform 0.1s;
 }
-
-.btn-primary:hover {
-    background-color: var(--primary-hover);
-}
+.btn-primary:hover { background-color: var(--primary-hover); }
+.btn-primary:active { transform: scale(0.98); }
 
 .btn-secondary {
     background: transparent;
@@ -82,9 +142,7 @@ body {
     color: var(--text-main);
     font-weight: 500;
 }
-.btn-secondary:hover {
-    background-color: var(--bg-color);
-}
+.btn-secondary:hover { background-color: var(--bg-color); }
 
 /* Мини-календарь */
 .mini-calendar {
@@ -109,9 +167,7 @@ body {
     padding: 4px 8px;
     color: var(--text-muted);
 }
-.mini-header button:hover {
-    color: var(--text-main);
-}
+.mini-header button:hover { color: var(--text-main); }
 
 .mini-weekdays {
     display: grid;
@@ -135,30 +191,17 @@ body {
     cursor: pointer;
     border-radius: 4px;
 }
-
-.mini-day:hover {
-    background-color: var(--bg-color);
-}
-
-.mini-day.other-month {
-    color: #cbd5e1;
-}
-
-.mini-day.selected {
-    background-color: var(--primary);
-    color: white;
-}
-
-.mini-day.today {
-    font-weight: bold;
-    border: 1px dashed var(--primary);
-}
+.mini-day:hover { background-color: var(--bg-color); }
+.mini-day.other-month { color: #cbd5e1; }
+.mini-day.selected { background-color: var(--primary); color: white; }
+.mini-day.today { font-weight: bold; border: 1px dashed var(--primary); }
 
 /* Фильтры категорий */
 .categories-filter {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    flex: 1;
 }
 
 .categories-filter h4 {
@@ -185,6 +228,31 @@ body {
 .badge.personal { background-color: var(--personal); }
 .badge.study { background-color: var(--study); }
 .badge.health { background-color: var(--health); }
+
+/* Профиль пользователя внизу сайдбара */
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+}
+
+.user-profile img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-profile span {
+    flex: 1;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 /* Основной экран */
 .main-content {
@@ -221,10 +289,7 @@ body {
     justify-content: center;
     color: var(--text-muted);
 }
-.icon-btn:hover {
-    background-color: var(--bg-color);
-    color: var(--text-main);
-}
+.icon-btn:hover { background-color: var(--bg-color); color: var(--text-main); }
 
 .view-switcher {
     display: flex;
@@ -244,18 +309,22 @@ body {
     font-weight: 500;
     color: var(--text-muted);
 }
-
 .view-btn.active {
     background-color: white;
     color: var(--text-main);
     box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
-/* Сетка расписания */
 .schedule-container {
     flex: 1;
     overflow-y: auto;
     padding: 20px;
+    animation: fadeIn 0.25s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Почасовой вид (День) */
@@ -295,9 +364,47 @@ body {
     align-items: center;
     cursor: pointer;
 }
-.hour-content:hover {
-    background-color: #fafafa;
+.hour-content:hover { background-color: #fafafa; }
+
+/* Вид Недели */
+.week-view-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12px;
+    min-width: 800px;
 }
+
+.week-column {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.week-column-header {
+    padding: 10px;
+    background-color: var(--bg-color);
+    border-bottom: 1px solid var(--border-color);
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+.week-column.today .week-column-header {
+    background-color: var(--primary);
+    color: white;
+}
+
+.week-column-body {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 400px;
+    cursor: pointer;
+}
+.week-column-body:hover { background-color: #fcfcfc; }
 
 /* Карточка события */
 .event-card {
@@ -310,16 +417,14 @@ body {
     display: flex;
     flex-direction: column;
     gap: 2px;
-    max-width: 250px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
+.event-card:hover { transform: translateY(-1px); box-shadow: 0 4px 6px rgba(0,0,0,0.12); }
 .event-card.work { background-color: var(--work); }
 .event-card.personal { background-color: var(--personal); }
 .event-card.study { background-color: var(--study); }
 .event-card.health { background-color: var(--health); }
-
-.event-card .title {
-    font-weight: 600;
-}
+.event-card .title { font-weight: 600; }
 
 /* Месячный вид */
 .month-view-grid {
@@ -339,32 +444,24 @@ body {
     gap: 4px;
     cursor: pointer;
 }
-.month-cell:hover {
-    border-color: var(--primary);
-}
-.month-cell-header {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-muted);
-}
-.month-cell.today .month-cell-header {
-    color: var(--primary);
-}
+.month-cell:hover { border-color: var(--primary); }
+.month-cell-header { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
+.month-cell.today .month-cell-header { color: var(--primary); }
 
 /* Модальное окно */
 .modal {
     display: none;
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.4);
+    backdrop-filter: blur(2px);
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.2s ease;
 }
-
-.modal.open {
-    display: flex;
-}
+.modal.open { display: flex; opacity: 1; }
 
 .modal-content {
     background-color: white;
@@ -372,39 +469,21 @@ body {
     width: 100%;
     max-width: 450px;
     padding: 24px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
     display: flex;
     flex-direction: column;
     gap: 16px;
+    transform: translateY(10px);
+    transition: transform 0.2s ease;
 }
+.modal.open .modal-content { transform: translateY(0); }
 
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+.modal-header { display: flex; justify-content: space-between; align-items: center; }
+.close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
+.close-btn:hover { color: var(--text-main); }
 
-.close-btn {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--text-muted);
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 12px;
-}
-
-.form-group label {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-muted);
-}
-
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+.form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
 .form-group input, .form-group select, .form-group textarea {
     padding: 8px 12px;
     border: 1px solid var(--border-color);
@@ -412,32 +491,9 @@ body {
     font-size: 0.9rem;
     outline: none;
 }
-.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-    border-color: var(--primary);
-}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); }
 
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-}
-
-.modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.btn-danger {
-    background-color: var(--danger);
-    color: white;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-}
-.btn-danger:hover {
-    background-color: #dc2626;
-}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; }
+.btn-danger { background-color: var(--danger); color: white; border: none; padding: 10px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+.btn-danger:hover { background-color: #dc2626; }
